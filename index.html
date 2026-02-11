@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Envía tu Chiste - TV en Vivo</title>
+
+<style>
+/* ===== ESTILOS ===== */
+body {
+    background-image: url('https://media-cdn.flowics.com/user-library-prod/v1/team/3539/698cf485aa91800f798f1366/BACKGROUND_00290.png');
+    background-size: contain;
+    background-position: center;
+    background-attachment: fixed;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+}
+
+.container {
+    background-color: #1a3a2a;
+    border: 3px solid #2d7a4a;
+    border-radius: 20px;
+    padding: 60px;
+    width: 100%;
+    max-width: 800px;
+}
+
+h1 {
+    text-align: center;
+    color: #00E56A;
+    margin-bottom: 20px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: none;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #2d7a4a;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.message {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 6px;
+    display: none;
+}
+.success { background: #1b5e20; }
+.error { background: #b71c1c; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Envía tu Chiste</h1>
+
+    <form id="jokeForm">
+        <input type="text" id="nombre" placeholder="Nombre completo" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <textarea id="chiste" placeholder="Tu chiste (máx 300 caracteres)" maxlength="300" required></textarea>
+        <button type="submit" id="submitBtn">Enviar Chiste</button>
+    </form>
+
+    <div id="message" class="message"></div>
+</div>
+
+<script>
+
+// ===== CONFIGURACIÓN =====
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw-PkE4D1ddOcCv9I4kKWRt4zj6-HBQM6b7AnvyMXyL03z0V_kmvOZVujmnMgklCW-PA/exec';
+const TOKEN = 'CHV2026';
+
+const form = document.getElementById('jokeForm');
+const messageDiv = document.getElementById('message');
+const submitBtn = document.getElementById('submitBtn');
+
+function showMessage(text, type) {
+    messageDiv.textContent = text;
+    messageDiv.className = 'message ' + type;
+    messageDiv.style.display = 'block';
+}
+
+form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+
+    const payload = {
+        nombre: document.getElementById('nombre').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        chiste: document.getElementById('chiste').value.trim(),
+        token: TOKEN
+    };
+
+    try {
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            showMessage('✨ ¡Chiste enviado con éxito!', 'success');
+            form.reset();
+        } else {
+            showMessage('❌ Error al enviar.', 'error');
+        }
+
+    } catch (error) {
+        showMessage('❌ Error de conexión.', 'error');
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar Chiste';
+});
+</script>
+
+</body>
+</html>
