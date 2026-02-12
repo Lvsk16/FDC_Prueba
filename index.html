@@ -8,7 +8,6 @@
 <style>
 /* ===== TODO TU CSS ORIGINAL SE MANTIENE EXACTAMENTE IGUAL ===== */
 *{margin:0;padding:0;box-sizing:border-box;}
-
 body{
 background-image:url('https://media-cdn.flowics.com/user-library-prod/v1/team/3539/698cf485aa91800f798f1366/BACKGROUND_00290.png');
 background-size:contain;
@@ -22,16 +21,12 @@ justify-content:center;
 align-items:center;
 padding:100px;
 }
-
 body::before{
-content:'';
-position:fixed;
-top:0;left:0;width:100%;height:100%;
+content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 background-color:rgba(0,0,0,0.3);
 pointer-events:none;
 z-index:-1;
 }
-
 .container{
 background-color:#1a3a2a;
 border:3px solid #2d7a4a;
@@ -44,71 +39,24 @@ animation:fadeIn 0.5s ease-in;
 position:relative;
 z-index:1;
 }
-
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
-}
-
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 .logo-container{text-align:center;margin-bottom:20px;}
 .logo{max-width:650px;height:auto;animation:logoSlide 0.6s ease;}
-
-@keyframes logoSlide{
-from{opacity:0;transform:scale(0.8);}
-to{opacity:1;transform:scale(1);}
-}
-
+@keyframes logoSlide{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
 h1{text-align:center;font-size:28px;margin-bottom:10px;color:#00E56A;}
 .subtitle{text-align:center;font-size:14px;color:#a8d5ba;margin-bottom:30px;}
 .form-group{margin-bottom:20px;}
-
-label{
-display:block;font-size:14px;font-weight:750;color:#c0f0d8;
-margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;
-}
-
-input[type="text"],
-input[type="email"],
-textarea{
-width:100%;padding:12px;border:2px solid #2d5a44;border-radius:6px;
-background-color:#0f2818;color:#ffffff;font-size:15px;
-transition:all 0.3s ease;
-}
-
-input:focus,textarea:focus{
-outline:none;border-color:#4cef5f;background-color:#1a3a2a;
-box-shadow:0 0 10px rgba(76,239,95,0.3);
-}
-
+label{display:block;font-size:14px;font-weight:750;color:#c0f0d8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+input[type="text"],input[type="email"],textarea{width:100%;padding:12px;border:2px solid #2d5a44;border-radius:6px;background-color:#0f2818;color:#ffffff;font-size:15px;transition:all 0.3s ease;}
+input:focus,textarea:focus{outline:none;border-color:#4cef5f;background-color:#1a3a2a;box-shadow:0 0 10px rgba(76,239,95,0.3);}
 textarea{resize:vertical;min-height:120px;font-size:13px;}
-
 .char-count{font-size:12px;color:#7a9f8f;margin-top:5px;text-align:right;}
 .char-count.warning{color:#ff9800;}
 .char-count.error{color:#f44336;}
-
-button{
-width:100%;padding:14px;
-background:linear-gradient(135deg,#2d7a4a 0%,#1a4a2f 100%);
-color:#4cef5f;border:2px solid #4cef5f;border-radius:6px;
-font-size:16px;font-weight:600;text-transform:uppercase;
-cursor:pointer;transition:all 0.3s ease;
-box-shadow:0 4px 15px rgba(76,239,95,0.3);
-}
-
-button:hover:not(:disabled){
-transform:translateY(-2px);
-box-shadow:0 6px 20px rgba(76,239,95,0.5);
-}
-
-button:disabled{
-background:#4a6a4a;color:#888;border-color:#666;opacity:0.7;
-}
-
-.message{
-padding:16px;border-radius:6px;margin-top:20px;
-text-align:center;font-size:14px;display:none;
-}
-
+button{width:100%;padding:14px;background:linear-gradient(135deg,#2d7a4a 0%,#1a4a2f 100%);color:#4cef5f;border:2px solid #4cef5f;border-radius:6px;font-size:16px;font-weight:600;text-transform:uppercase;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(76,239,95,0.3);}
+button:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 20px rgba(76,239,95,0.5);}
+button:disabled{background:#4a6a4a;color:#888;border-color:#666;opacity:0.7;}
+.message{padding:16px;border-radius:6px;margin-top:20px;text-align:center;font-size:14px;display:none;}
 .message.success{background:#1b5e20;color:#4caf50;display:block;}
 .message.error{background:#b71c1c;color:#ff6b6b;display:block;}
 .message.info{background:#01579b;color:#81d4fa;display:block;}
@@ -149,64 +97,58 @@ text-align:center;font-size:14px;display:none;
 </div>
 
 <script>
-/* ===== CONFIG ===== */
-const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw-PkE4D1ddOcCv9I4kKWRt4zj6-HBQM6b7AnvyMXyL03z0V_kmvOZVujmnMgklCW-PA/exec';
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzw1T3bxFOHhRfy5E4llZLMSl9oFq0oW4S309rOxFlm-_4UGj-qPlWtMbC4ScmpKv4ZRw/exec';
 
 const jokeForm=document.getElementById('jokeForm');
+const nombreInput=document.getElementById('nombre');
+const emailInput=document.getElementById('email');
 const chisteInput=document.getElementById('chiste');
 const charCount=document.getElementById('charCount');
 const messageDiv=document.getElementById('message');
 const submitBtn=document.getElementById('submitBtn');
 
-/* CONTADOR */
-chisteInput.addEventListener('input',()=>{
-charCount.textContent=chisteInput.value.length;
-});
+chisteInput.addEventListener('input',()=>{charCount.textContent=chisteInput.value.length;});
 
-/* MENSAJE */
 function showMessage(text,type){
 messageDiv.textContent=text;
 messageDiv.className='message '+type;
 }
 
-/* ENVÍO SIN CORS */
 jokeForm.addEventListener('submit',function(e){
 e.preventDefault();
 
 submitBtn.disabled=true;
 submitBtn.textContent='Enviando...';
 
-const formData=new URLSearchParams();
-formData.append("nombre",document.getElementById("nombre").value);
-formData.append("email",document.getElementById("email").value);
-formData.append("chiste",document.getElementById("chiste").value);
-
-fetch("https://script.google.com/macros/s/AKfycbzw1T3bxFOHhRfy5E4llZLMSl9oFq0oW4S309rOxFlm-_4UGj-qPlWtMbC4ScmpKv4ZRw/exec", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-        token: "CHV2026",
-        nombre: nombreInput.value,
-        email: emailInput.value,
-        chiste: chisteInput.value
+fetch(GOOGLE_APPS_SCRIPT_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+        token:'CHV2026',
+        nombre:nombreInput.value,
+        email:emailInput.value,
+        chiste:chisteInput.value
     })
 })
-.then(res => res.json())
-.then(data => console.log(data))
-.catch(err => console.error(err));
-showMessage('✨ ¡Tu chiste fue enviado con éxito!', 'success');
-
-jokeForm.reset();
-charCount.textContent='0';
-submitBtn.disabled=false;
-submitBtn.textContent='Enviar Chiste';
+.then(res=>res.json())
+.then(data=>{
+    if(data.success){
+        showMessage('✨ ¡Tu chiste fue enviado con éxito!', 'success');
+        jokeForm.reset();
+        charCount.textContent='0';
+    }else{
+        showMessage('❌ Error: '+(data.error||'desconocido'),'error');
+    }
+})
+.catch(err=>{
+    console.error(err);
+    showMessage('❌ Error al enviar el chiste','error');
+})
+.finally(()=>{
+    submitBtn.disabled=false;
+    submitBtn.textContent='Enviar Chiste';
+});
 });
 </script>
-
 </body>
 </html>
-
-
-
-
-
