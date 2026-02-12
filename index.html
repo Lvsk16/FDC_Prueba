@@ -47,7 +47,7 @@ input, textarea {
 button {
     width: 100%;
     padding: 14px;
-    background: #00E56A;
+    background: #2d7a4a;
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -111,11 +111,15 @@ form.addEventListener('submit', async function(e) {
     };
 
     try {
-        fetch(GOOGLE_APPS_SCRIPT_URL, {
-  method: 'POST',
-  mode: 'no-cors',
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+			method: 'POST',
+			mode: 'no-cors',
+  			headers: {
+				'Content-Type': 'application/json'
+  },
   body: JSON.stringify(payload)
 });
+
 
         const result = await response.json();
 
@@ -137,4 +141,3 @@ form.addEventListener('submit', async function(e) {
 
 </body>
 </html>
-
