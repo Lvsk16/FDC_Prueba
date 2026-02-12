@@ -97,58 +97,69 @@ button:disabled{background:#4a6a4a;color:#888;border-color:#666;opacity:0.7;}
 </div>
 
 <script>
-const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzw1T3bxFOHhRfy5E4llZLMSl9oFq0oW4S309rOxFlm-_4UGj-qPlWtMbC4ScmpKv4ZRw/exec';
 
-const jokeForm=document.getElementById('jokeForm');
-const nombreInput=document.getElementById('nombre');
-const emailInput=document.getElementById('email');
-const chisteInput=document.getElementById('chiste');
-const charCount=document.getElementById('charCount');
-const messageDiv=document.getElementById('message');
-const submitBtn=document.getElementById('submitBtn');
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzw1T3bxFOHhRfy5E4llZLMSl9oFq0oW4S309rOxFlm-_4UGj-qPlWtMbC4ScmpKv4ZRw/exec";
 
-chisteInput.addEventListener('input',()=>{charCount.textContent=chisteInput.value.length;});
+const jokeForm = document.getElementById('jokeForm');
+const nombreInput = document.getElementById('nombre');
+const emailInput = document.getElementById('email');
+const chisteInput = document.getElementById('chiste');
+const charCount = document.getElementById('charCount');
+const messageDiv = document.getElementById('message');
+const submitBtn = document.getElementById('submitBtn');
 
-function showMessage(text,type){
-messageDiv.textContent=text;
-messageDiv.className='message '+type;
+// Contador
+chisteInput.addEventListener('input', () => {
+  charCount.textContent = chisteInput.value.length;
+});
+
+// Mostrar mensaje
+function showMessage(text, type) {
+  messageDiv.textContent = text;
+  messageDiv.className = 'message ' + type;
 }
 
-jokeForm.addEventListener('submit',function(e){
-e.preventDefault();
+// Envío sin CORS
+jokeForm.addEventListener('submit', function (e) {
+  e.preventDefault();
 
-submitBtn.disabled=true;
-submitBtn.textContent='Enviando...';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Enviando...';
 
-fetch(GOOGLE_APPS_SCRIPT_URL,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-        token:'CHV2026',
-        nombre:nombreInput.value,
-        email:emailInput.value,
-        chiste:chisteInput.value
-    })
-})
-.then(res=>res.json())
-.then(data=>{
-    if(data.success){
-        showMessage('✨ ¡Tu chiste fue enviado con éxito!', 'success');
-        jokeForm.reset();
-        charCount.textContent='0';
-    }else{
-        showMessage('❌ Error: '+(data.error||'desconocido'),'error');
+  const formData = new URLSearchParams();
+  formData.append("token", "CHV2026");
+  formData.append("nombre", nombreInput.value);
+  formData.append("email", emailInput.value);
+  formData.append("chiste", chisteInput.value);
+
+  fetch(GOOGLE_APPS_SCRIPT_URL, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+
+    if (data.success) {
+      showMessage('✨ ¡Tu chiste fue enviado con éxito!', 'success');
+      jokeForm.reset();
+      charCount.textContent = '0';
+    } else {
+      showMessage('❌ Error: ' + (data.error || 'desconocido'), 'error');
     }
-})
-.catch(err=>{
-    console.error(err);
-    showMessage('❌ Error al enviar el chiste','error');
-})
-.finally(()=>{
-    submitBtn.disabled=false;
-    submitBtn.textContent='Enviar Chiste';
+
+  })
+  .catch(error => {
+    console.error(error);
+    showMessage('❌ Error al enviar el chiste', 'error');
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar Chiste';
+  });
+
 });
-});
+
 </script>
 </body>
 </html>
+
