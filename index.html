@@ -181,21 +181,20 @@ formData.append("nombre",document.getElementById("nombre").value);
 formData.append("email",document.getElementById("email").value);
 formData.append("chiste",document.getElementById("chiste").value);
 
-fetch("https://script.google.com/macros/s/AKfycby_pXNezvBoFNGrRdsQdyi8kQC9fujkrqMecZP0ZmvBORrT_StCTRrabMfAP7JwLUoeww/exec", {
+fetch("https://script.google.com/macros/s/AKfycbyaQC8HjdWUlGHk1pJR4QMlNkGoHCC0W3pDBLTRPfedbFpsQ65Mo4KhIc64jhjgrNheUg/exec", {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
         token: "CHV2026",
         nombre: nombreInput.value,
         email: emailInput.value,
         chiste: chisteInput.value
-    }),
-    headers: {
-        "Content-Type": "application/json"
-    }
+    })
 })
 .then(res => res.json())
 .then(data => console.log(data))
 .catch(err => console.error(err));
+
 
 showMessage('✨ ¡Tu chiste fue enviado con éxito!', 'success');
 
@@ -208,6 +207,7 @@ submitBtn.textContent='Enviar Chiste';
 
 </body>
 </html>
+
 
 
 
