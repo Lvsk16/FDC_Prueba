@@ -119,47 +119,49 @@ function showMessage(text, type) {
   messageDiv.className = 'message ' + type;
 }
 
-// Envío sin CORS
+// ENVÍO SIN FETCH (anti-CORS real)
 jokeForm.addEventListener('submit', function (e) {
+
   e.preventDefault();
 
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Enviando...';
+  submitBtn.textContent = "Enviando...";
 
-  const formData = new URLSearchParams();
-  formData.append("token", "CHV2026");
-  formData.append("nombre", nombreInput.value);
-  formData.append("email", emailInput.value);
-  formData.append("chiste", chisteInput.value);
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = GOOGLE_APPS_SCRIPT_URL;
+  form.target = "hidden_iframe";
 
-  fetch(GOOGLE_APPS_SCRIPT_URL, {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
+  function addField(name, value) {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    form.appendChild(input);
+  }
 
-    if (data.success) {
-      showMessage('✨ ¡Tu chiste fue enviado con éxito!', 'success');
-      jokeForm.reset();
-      charCount.textContent = '0';
-    } else {
-      showMessage('❌ Error: ' + (data.error || 'desconocido'), 'error');
-    }
+  addField("token", "CHV2026");
+  addField("nombre", nombreInput.value);
+  addField("email", emailInput.value);
+  addField("chiste", chisteInput.value);
 
-  })
-  .catch(error => {
-    console.error(error);
-    showMessage('❌ Error al enviar el chiste', 'error');
-  })
-  .finally(() => {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Enviar Chiste';
-  });
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  showMessage("✨ ¡Tu chiste fue enviado con éxito!", "success");
+
+  jokeForm.reset();
+  charCount.textContent = "0";
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Enviar Chiste";
 
 });
 
 </script>
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
+
 
