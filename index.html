@@ -38,7 +38,7 @@ border:3px solid #2d7a4a;
 border-radius:20px;
 box-shadow:0 8px 32px rgba(60,122,74,0.4);
 padding:80px;
-width:150%;
+width:200%;
 max-width:900px;
 animation:fadeIn 0.5s ease-in;
 position:relative;
@@ -181,11 +181,21 @@ formData.append("nombre",document.getElementById("nombre").value);
 formData.append("email",document.getElementById("email").value);
 formData.append("chiste",document.getElementById("chiste").value);
 
-fetch(GOOGLE_APPS_SCRIPT_URL,{
-method:'POST',
-mode:'no-cors',
-body:formData
-});
+fetch("https://script.google.com/macros/s/AKfycby_pXNezvBoFNGrRdsQdyi8kQC9fujkrqMecZP0ZmvBORrT_StCTRrabMfAP7JwLUoeww/exec", {
+    method: "POST",
+    body: JSON.stringify({
+        token: "CHV2026",
+        nombre: nombreInput.value,
+        email: emailInput.value,
+        chiste: chisteInput.value
+    }),
+    headers: {
+        "Content-Type": "application/json"
+    }
+})
+.then(res => res.json())
+.then(data => console.log(data))
+.catch(err => console.error(err));
 
 showMessage('✨ ¡Tu chiste fue enviado con éxito!', 'success');
 
@@ -198,5 +208,6 @@ submitBtn.textContent='Enviar Chiste';
 
 </body>
 </html>
+
 
 
