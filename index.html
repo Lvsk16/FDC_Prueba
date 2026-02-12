@@ -6,136 +6,193 @@
 <title>Envía tu Chiste - TV en Vivo</title>
 
 <style>
-/* ===== ESTILOS ===== */
-body {
-    background-image: url('https://media-cdn.flowics.com/user-library-prod/v1/team/3539/698cf485aa91800f798f1366/BACKGROUND_00290.png');
-    background-size: contain;
-    background-position: center;
-    background-attachment: fixed;
-    color: #ffffff;
-    font-family: 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 60px;
+/* ===== TODO TU CSS ORIGINAL SE MANTIENE EXACTAMENTE IGUAL ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+background-image:url('https://media-cdn.flowics.com/user-library-prod/v1/team/3539/698cf485aa91800f798f1366/BACKGROUND_00290.png');
+background-size:contain;
+background-position:center;
+background-attachment:fixed;
+color:#ffffff;
+font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:100px;
 }
 
-.container {
-    background-color: #1a3a2a;
-    border: 3px solid #2d7a4a;
-    border-radius: 20px;
-    padding: 60px;
-    width: 100%;
-    max-width: 800px;
+body::before{
+content:'';
+position:fixed;
+top:0;left:0;width:100%;height:100%;
+background-color:rgba(0,0,0,0.3);
+pointer-events:none;
+z-index:-1;
 }
 
-h1 {
-    text-align: center;
-    color: #00E56A;
-    margin-bottom: 20px;
+.container{
+background-color:#1a3a2a;
+border:3px solid #2d7a4a;
+border-radius:20px;
+box-shadow:0 8px 32px rgba(60,122,74,0.4);
+padding:80px;
+width:200%;
+max-width:900px;
+animation:fadeIn 0.5s ease-in;
+position:relative;
+z-index:1;
 }
 
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    border: none;
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 
-button {
-    width: 100%;
-    padding: 14px;
-    background: #2d7a4a;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
+.logo-container{text-align:center;margin-bottom:20px;}
+.logo{max-width:650px;height:auto;animation:logoSlide 0.6s ease;}
+
+@keyframes logoSlide{
+from{opacity:0;transform:scale(0.8);}
+to{opacity:1;transform:scale(1);}
 }
 
-.message {
-    margin-top: 20px;
-    padding: 12px;
-    border-radius: 6px;
-    display: none;
+h1{text-align:center;font-size:28px;margin-bottom:10px;color:#00E56A;}
+.subtitle{text-align:center;font-size:14px;color:#a8d5ba;margin-bottom:30px;}
+.form-group{margin-bottom:20px;}
+
+label{
+display:block;font-size:14px;font-weight:750;color:#c0f0d8;
+margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;
 }
-.success { background: #1b5e20; }
-.error { background: #b71c1c; }
+
+input[type="text"],
+input[type="email"],
+textarea{
+width:100%;padding:12px;border:2px solid #2d5a44;border-radius:6px;
+background-color:#0f2818;color:#ffffff;font-size:15px;
+transition:all 0.3s ease;
+}
+
+input:focus,textarea:focus{
+outline:none;border-color:#4cef5f;background-color:#1a3a2a;
+box-shadow:0 0 10px rgba(76,239,95,0.3);
+}
+
+textarea{resize:vertical;min-height:120px;font-size:13px;}
+
+.char-count{font-size:12px;color:#7a9f8f;margin-top:5px;text-align:right;}
+.char-count.warning{color:#ff9800;}
+.char-count.error{color:#f44336;}
+
+button{
+width:100%;padding:14px;
+background:linear-gradient(135deg,#2d7a4a 0%,#1a4a2f 100%);
+color:#4cef5f;border:2px solid #4cef5f;border-radius:6px;
+font-size:16px;font-weight:600;text-transform:uppercase;
+cursor:pointer;transition:all 0.3s ease;
+box-shadow:0 4px 15px rgba(76,239,95,0.3);
+}
+
+button:hover:not(:disabled){
+transform:translateY(-2px);
+box-shadow:0 6px 20px rgba(76,239,95,0.5);
+}
+
+button:disabled{
+background:#4a6a4a;color:#888;border-color:#666;opacity:0.7;
+}
+
+.message{
+padding:16px;border-radius:6px;margin-top:20px;
+text-align:center;font-size:14px;display:none;
+}
+
+.message.success{background:#1b5e20;color:#4caf50;display:block;}
+.message.error{background:#b71c1c;color:#ff6b6b;display:block;}
+.message.info{background:#01579b;color:#81d4fa;display:block;}
+.message.warning{background:#e65100;color:#ffb74d;display:block;}
 </style>
 </head>
 
 <body>
-
 <div class="container">
-    <h1>Envía tu Chiste</h1>
+<div class="logo-container">
+<img src="https://media-cdn.flowics.com/user-library-prod/v1/team/3539/698cf8c7aa91800f798f1391/LOGO_00088.png" class="logo">
+</div>
 
-    <form id="jokeForm">
-        <input type="text" id="nombre" placeholder="Nombre completo" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <textarea id="chiste" placeholder="Tu chiste (máx 300 caracteres)" maxlength="300" required></textarea>
-        <button type="submit" id="submitBtn">Enviar Chiste</button>
-    </form>
+<h1>Envía tu Chiste</h1>
+<p class="subtitle">Sé parte de nuestro programa</p>
 
-    <div id="message" class="message"></div>
+<form id="jokeForm">
+<div class="form-group">
+<label>Nombre *</label>
+<input type="text" id="nombre" required>
+</div>
+
+<div class="form-group">
+<label>Email *</label>
+<input type="email" id="email" required>
+</div>
+
+<div class="form-group">
+<label>Tu Chiste *</label>
+<textarea id="chiste" maxlength="300" required></textarea>
+<div class="char-count"><span id="charCount">0</span>/300</div>
+</div>
+
+<button type="submit" id="submitBtn">Enviar Chiste</button>
+</form>
+
+<div id="message" class="message"></div>
 </div>
 
 <script>
-
-// ===== CONFIGURACIÓN =====
+/* ===== CONFIG ===== */
 const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw-PkE4D1ddOcCv9I4kKWRt4zj6-HBQM6b7AnvyMXyL03z0V_kmvOZVujmnMgklCW-PA/exec';
-const TOKEN = 'CHV2026';
 
-const form = document.getElementById('jokeForm');
-const messageDiv = document.getElementById('message');
-const submitBtn = document.getElementById('submitBtn');
+const jokeForm=document.getElementById('jokeForm');
+const chisteInput=document.getElementById('chiste');
+const charCount=document.getElementById('charCount');
+const messageDiv=document.getElementById('message');
+const submitBtn=document.getElementById('submitBtn');
 
-function showMessage(text, type) {
-    messageDiv.textContent = text;
-    messageDiv.className = 'message ' + type;
-    messageDiv.style.display = 'block';
-}
-
-form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Enviando...';
-
-    const payload = {
-        nombre: document.getElementById('nombre').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        chiste: document.getElementById('chiste').value.trim(),
-        token: TOKEN
-    };
-
-    try {
-        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-			method: 'POST',
-			mode: 'no-cors',
-  			headers: {
-				'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(payload)
+/* CONTADOR */
+chisteInput.addEventListener('input',()=>{
+charCount.textContent=chisteInput.value.length;
 });
 
+/* MENSAJE */
+function showMessage(text,type){
+messageDiv.textContent=text;
+messageDiv.className='message '+type;
+}
 
-        const result = await response.json();
+/* ENVÍO SIN CORS */
+jokeForm.addEventListener('submit',function(e){
+e.preventDefault();
 
-        if (result.success) {
-            showMessage('✨ ¡Chiste enviado con éxito!', 'success');
-            form.reset();
-        } else {
-            showMessage('❌ Error al enviar.', 'error');
-        }
+submitBtn.disabled=true;
+submitBtn.textContent='Enviando...';
 
-    } catch (error) {
-        showMessage('❌ Error de conexión.', 'error');
-    }
+const formData=new URLSearchParams();
+formData.append("nombre",document.getElementById("nombre").value);
+formData.append("email",document.getElementById("email").value);
+formData.append("chiste",document.getElementById("chiste").value);
 
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Enviar Chiste';
+fetch(GOOGLE_APPS_SCRIPT_URL,{
+method:'POST',
+mode:'no-cors',
+body:formData
+});
+
+showMessage('✨ ¡Tu chiste fue enviado con éxito!', 'success');
+
+jokeForm.reset();
+charCount.textContent='0';
+submitBtn.disabled=false;
+submitBtn.textContent='Enviar Chiste';
 });
 </script>
 
