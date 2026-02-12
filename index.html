@@ -181,7 +181,7 @@ formData.append("nombre",document.getElementById("nombre").value);
 formData.append("email",document.getElementById("email").value);
 formData.append("chiste",document.getElementById("chiste").value);
 
-fetch("https://script.google.com/macros/s/AKfycbyaQC8HjdWUlGHk1pJR4QMlNkGoHCC0W3pDBLTRPfedbFpsQ65Mo4KhIc64jhjgrNheUg/exec", {
+fetch("https://script.google.com/macros/s/AKfycbzw1T3bxFOHhRfy5E4llZLMSl9oFq0oW4S309rOxFlm-_4UGj-qPlWtMbC4ScmpKv4ZRw/exec", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -194,8 +194,6 @@ fetch("https://script.google.com/macros/s/AKfycbyaQC8HjdWUlGHk1pJR4QMlNkGoHCC0W3
 .then(res => res.json())
 .then(data => console.log(data))
 .catch(err => console.error(err));
-
-
 showMessage('✨ ¡Tu chiste fue enviado con éxito!', 'success');
 
 jokeForm.reset();
@@ -207,6 +205,7 @@ submitBtn.textContent='Enviar Chiste';
 
 </body>
 </html>
+
 
 
 
