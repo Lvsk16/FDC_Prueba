@@ -6,7 +6,6 @@
 <title>Envía tu Chiste</title>
 
 <style>
-/* ===== TODO TU CSS ORIGINAL SE MANTIENE EXACTAMENTE IGUAL ===== */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
 background-image:url('https://media-cdn.flowics.com/user-library-prod/v1/team/3539/698cf485aa91800f798f1366/BACKGROUND_00290.png');
@@ -61,6 +60,66 @@ button:disabled{background:#4a6a4a;color:#888;border-color:#666;opacity:0.7;}
 .message.error{background:#b71c1c;color:#ff6b6b;display:block;}
 .message.info{background:#01579b;color:#81d4fa;display:block;}
 .message.warning{background:#e65100;color:#ffb74d;display:block;}
+
+/* ============================= */
+/* ===== RESPONSIVE MÓVIL ===== */
+/* ============================= */
+
+@media (max-width: 768px){
+
+body{
+padding:20px;
+background-size:cover;
+background-attachment:scroll;
+}
+
+.container{
+width:100%;
+padding:30px 20px;
+border-radius:15px;
+}
+
+.logo{
+max-width:250px;
+}
+
+h1{
+font-size:22px;
+}
+
+.subtitle{
+font-size:13px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea{
+font-size:14px;
+padding:10px;
+}
+
+button{
+font-size:15px;
+padding:12px;
+}
+
+}
+
+@media (max-width: 480px){
+
+.container{
+padding:20px 15px;
+}
+
+.logo{
+max-width:200px;
+}
+
+h1{
+font-size:20px;
+}
+
+}
 </style>
 </head>
 
@@ -97,7 +156,6 @@ button:disabled{background:#4a6a4a;color:#888;border-color:#666;opacity:0.7;}
 </div>
 
 <script>
-
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxxT3slZtebbGik6UMBq0cwJhKD9T-bDzc2kEeDwKh3i80ljQIRyxLhph2yu92XyWnWZg/exec";
 
 const jokeForm = document.getElementById('jokeForm');
@@ -108,18 +166,15 @@ const charCount = document.getElementById('charCount');
 const messageDiv = document.getElementById('message');
 const submitBtn = document.getElementById('submitBtn');
 
-// Contador
 chisteInput.addEventListener('input', () => {
   charCount.textContent = chisteInput.value.length;
 });
 
-// Mostrar mensaje
 function showMessage(text, type) {
   messageDiv.textContent = text;
   messageDiv.className = 'message ' + type;
 }
 
-// ENVÍO SIN FETCH (anti-CORS real)
 jokeForm.addEventListener('submit', function (e) {
 
   e.preventDefault();
@@ -157,14 +212,8 @@ jokeForm.addEventListener('submit', function (e) {
   submitBtn.textContent = "Enviar Chiste";
 
 });
-
 </script>
 
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
-
-
-
-
-
